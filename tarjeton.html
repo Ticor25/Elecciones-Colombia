@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Votación</title>
+<style>
+body{
+    font-family: Arial;
+    text-align: center;
+    background: #f2f2f2;
+}
+
+.candidatos{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.candidato{
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 200px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+button{
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 8px;
+}
+
+.resultados{
+    margin-top: 40px;
+    font-size: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🗳️ Sistema de Votación</h1>
+
+<div class="candidatos">
+
+    <div class="candidato">
+        <img src="imagen.png">
+        <h3>Pacto Histórico</h3>
+        <button onclick="votar('pacto')">Votar</button>
+    </div>
+
+    <div class="candidato">
+        <img src="candidato.png">
+        <h3>Defensores de la Patria</h3>
+        <button onclick="votar('defensores')">Votar</button>
+    </div>
+
+</div>
+
+<div class="resultados">
+    <p>Pacto Histórico: <span id="pacto">0</span></p>
+    <p>Defensores de la Patria: <span id="defensores">0</span></p>
+</div>
+
+<script>
+// cargar votos guardados
+let votos = JSON.parse(localStorage.getItem("votos")) || {
+    pacto: 0,
+    defensores: 0
+};
+
+function actualizar(){
+    document.getElementById("pacto").innerText = votos.pacto;
+    document.getElementById("defensores").innerText = votos.defensores;
+    localStorage.setItem("votos", JSON.stringify(votos));
+}
+
+function votar(candidato){
+    votos[candidato]++;
+    actualizar();
+}
+
+actualizar();
+</script>
+
+</body>
+</html>
